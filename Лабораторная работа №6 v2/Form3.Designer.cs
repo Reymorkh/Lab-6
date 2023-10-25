@@ -64,7 +64,7 @@
             Controls.Add(button1);
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form3";
+            Text = "Задача 2. Текст.";
             ResumeLayout(false);
             PerformLayout();
         }

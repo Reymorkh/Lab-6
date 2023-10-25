@@ -89,7 +89,7 @@ namespace Лабораторная_работа__6_v2
 
         public void OneDimPrint()
         {
-            MainWindow.Text = "Одномерный массив массив:";
+            MainWindow.Text = "Одномерный массив:";
             if (Form2.isInitialized)
             {
                 int temp = 0;
@@ -191,7 +191,7 @@ namespace Лабораторная_работа__6_v2
         {
             if (Task2Init)
             {
-                string[] sentences = Task2.Split(new char[] { '.', '!', '?'}, StringSplitOptions.RemoveEmptyEntries);
+                string[] sentences = Task2.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < sentences.Length; i++)
                 {
                     if ((i + 1) % 2 == 1)
@@ -209,7 +209,7 @@ namespace Лабораторная_работа__6_v2
                 int x = 0;
                 for (int i = 0; i < Task2.Length; i++)
                 {
-                    switch(Task2[i])
+                    switch (Task2[i])
                     {
                         case '.':
                             temp += sentences[x] + '.';
@@ -231,6 +231,18 @@ namespace Лабораторная_работа__6_v2
             }
             else
                 MessageBox.Show("Не с чем работать.", "Ошибка");
+        }
+
+        private void GuideButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Создать - запускает процедуру создания одномерного массива.\nРедактировать - открывает окно редактирования элементов массива.\n" +
+                "Заполнить - заполняет массив случайными числами.\nПечать - выводит данные о массиве на экран столбиком по 10 элементов.\n" +
+                "Сорт - сортировка по убыванию всех элементов, кроме нечётных", "Информация");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ввести строку - ввод строки для работы по варианту.\nПечать - выводит данные о строке на экран.\nПереворот - переворачивает каждое нечётное предложение.", "Информация");
         }
     }
 }

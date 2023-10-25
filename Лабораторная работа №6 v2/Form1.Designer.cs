@@ -39,6 +39,8 @@
             StringEnterButton = new Button();
             StringPrintButton = new Button();
             ReverseStringButton = new Button();
+            GuideButton = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // OneDimCreateButton
@@ -58,7 +60,7 @@
             MainWindow.Name = "MainWindow";
             MainWindow.ReadOnly = true;
             MainWindow.ScrollBars = ScrollBars.Both;
-            MainWindow.Size = new Size(449, 426);
+            MainWindow.Size = new Size(449, 214);
             MainWindow.TabIndex = 1;
             // 
             // OneDimEditButton
@@ -77,7 +79,7 @@
             OneDimRandomButton.Name = "OneDimRandomButton";
             OneDimRandomButton.Size = new Size(97, 23);
             OneDimRandomButton.TabIndex = 3;
-            OneDimRandomButton.Text = "Рандом";
+            OneDimRandomButton.Text = "Заполнить";
             OneDimRandomButton.UseVisualStyleBackColor = true;
             OneDimRandomButton.Click += OneDimRandomButton_Click;
             // 
@@ -149,11 +151,33 @@
             ReverseStringButton.UseVisualStyleBackColor = true;
             ReverseStringButton.Click += ReverseStringButton_Click;
             // 
+            // GuideButton
+            // 
+            GuideButton.Location = new Point(575, 12);
+            GuideButton.Name = "GuideButton";
+            GuideButton.Size = new Size(23, 23);
+            GuideButton.TabIndex = 11;
+            GuideButton.Text = "?";
+            GuideButton.UseVisualStyleBackColor = true;
+            GuideButton.Click += GuideButton_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(770, 11);
+            button1.Name = "button1";
+            button1.Size = new Size(23, 23);
+            button1.TabIndex = 12;
+            button1.Text = "?";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 237);
+            Controls.Add(button1);
+            Controls.Add(GuideButton);
             Controls.Add(ReverseStringButton);
             Controls.Add(StringPrintButton);
             Controls.Add(StringEnterButton);
@@ -167,7 +191,7 @@
             Controls.Add(OneDimCreateButton);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Лабораторная работа №6.";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -185,5 +209,7 @@
         private Button StringEnterButton;
         private Button StringPrintButton;
         private Button ReverseStringButton;
+        private Button GuideButton;
+        private Button button1;
     }
 }

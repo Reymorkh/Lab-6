@@ -85,7 +85,7 @@
             MaximumSize = new Size(600, 150);
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form2";
+            Text = "Создание массива.";
             ResumeLayout(false);
             PerformLayout();
         }
