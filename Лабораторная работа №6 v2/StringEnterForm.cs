@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Лабораторная_работа__6_v2
 {
-    public partial class Form3 : Form
+    public partial class StringEnterForm : Form
     {
-        public Form3()
+        public StringEnterForm()
         {
             InitializeComponent();
         }
@@ -34,8 +34,8 @@ namespace Лабораторная_работа__6_v2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1.Task2 = textBox1.Text;
-            Form1.Task2Init = true;
+            MainMenu.Task2 = textBox1.Text;
+            MainMenu.Task2Init = true;
             this.Close();
         }
     }

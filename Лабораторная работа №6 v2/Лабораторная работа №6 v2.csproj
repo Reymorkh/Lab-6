@@ -9,4 +9,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\MyLibWF\MyLibWF\MyLibWF.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿namespace Лабораторная_работа__6_v2
 {
-    partial class Form3
+    partial class StringEnterForm
     {
         /// <summary>
         /// Required designer variable.
