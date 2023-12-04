@@ -11,83 +11,71 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Label = System.Windows.Forms.Label;
 using TextBox = System.Windows.Forms.TextBox;
-using MyLibWF;
+using static MyLibStructWF.ArrayTypes;
+using static Лабораторная_работа__5.BusinessLogic;
 
 namespace Лабораторная_работа__6_v2
 {
   public partial class OneDimArrayForm : Form
   {
-    public static bool isInitialized = false;
-    public static int[] arrayOne;
-    public static List<TextBox> textBoxes = ActionsWF.textBoxes;
-    public static List<Label> labels = ActionsWF.labels;
-
     public OneDimArrayForm()
     {
       InitializeComponent();
-      if (MainMenu.isEdit1 == true)
+      if (MainMenu.isEdit == true)
       {
-        button1.Visible = false;
-        textBox1.Visible = false;
-        label1.Visible = false;
-        button2.Visible = true;
+        OneDimTemp.array = Copy(OneDimMain.array);
+        LengthEnterButton.Visible = false;
+        LengthEnterTextBox.Visible = false;
+        LengthEnterLabel.Visible = false;
+        ConfirmationButton.Visible = true;
         Printer();
       }
     }
 
     public void Printer()
     {
-      ActionsWF.Print(arrayOne);
+      OneDimTemp.PrintBoxes();
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
         Controls.Add(s);
     }
 
-    private void button1_Click(object sender, EventArgs e)
+    private void LengthEnterButton_Click(object sender, EventArgs e)
     {
-      int temp;
-      if (int.TryParse(textBox1.Text, out temp) && temp > 0)
+      if (int.TryParse(LengthEnterTextBox.Text, out int temp) && temp > -1)
       {
-        arrayOne = new int[temp];
-        MainMenu.arrayMainOne = arrayOne;
-        isInitialized = true;
-        label1.Visible = false;
-        textBox1.Visible = false;
-        button1.Visible = false;
-        button2.Visible = true;
+        if (temp == 0)
+        {
+          OneDimMain.array = new int[0];
+          this.Close();
+        }
+        OneDimTemp.array = new int[temp];
+        LengthEnterLabel.Visible = false;
+        LengthEnterTextBox.Visible = false;
+        LengthEnterButton.Visible = false;
+        ConfirmationButton.Visible = true;
         Printer();
       }
       else
         MessageBox.Show("Integer больше нуля, пожалуйста.", "Ошибка");
     }
 
-    private void textBox1_KeyDown(object sender, KeyEventArgs e)
+    private void LengthEnterTextBox_KeyDown(object sender, KeyEventArgs e)
     {
       var textBox = sender as TextBox;
       if (e.KeyCode == Keys.Enter)
       {
-        button1_Click(sender, e);
+        LengthEnterButton_Click(sender, e);
       }
     }
 
-    private void button2_Click(object sender, EventArgs e)
+    private void ConfirmationButton_Click(object sender, EventArgs e)
     {
-      bool isCorrect = true;
-      foreach (var x in textBoxes)
+      if (OneDimBoxesCheck)
       {
-        int y;
-        if (!int.TryParse(x.Text, out y))
-        {
-          isCorrect = false;
-          break;
-        }
-      }
-
-      if (isCorrect)
-      {
-        ActionsWF.BoxesToArray(arrayOne);
-        isInitialized = true;
+        OneDimTemp.BoxesToArray();
+        OneDimMain.array = Copy(OneDimTemp.array);
         this.Close();
       }
       else
@@ -95,11 +83,18 @@ namespace Лабораторная_работа__6_v2
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          ActionsWF.BoxesToArray(arrayOne);
-          isInitialized = true;
+          OneDimTemp.BoxesToArray();
+          OneDimMain.array = Copy(OneDimTemp.array);
           this.Close();
         }
       }
+    }
+
+    private void OneDimArrayForm_FormClosing(object sender, FormClosingEventArgs e)
+    {
+      textBoxes.Clear();
+      labels.Clear();
+      this.Dispose();
     }
   }
 }

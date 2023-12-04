@@ -28,40 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
+            ConfirmationButton = new Button();
+            StringInputTextBox = new TextBox();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(385, 93);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 40);
-            button1.TabIndex = 0;
-            button1.Text = "Ввод";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            ConfirmationButton.Location = new Point(385, 93);
+            ConfirmationButton.Name = "button1";
+            ConfirmationButton.Size = new Size(75, 40);
+            ConfirmationButton.TabIndex = 0;
+            ConfirmationButton.Text = "Ввод";
+            ConfirmationButton.UseVisualStyleBackColor = true;
+            ConfirmationButton.Click += ConfirmationButton_Click;
             // 
             // textBox1
             // 
-            textBox1.ForeColor = Color.Gray;
-            textBox1.Location = new Point(12, 12);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(367, 122);
-            textBox1.TabIndex = 1;
-            textBox1.Text = "Введите строку";
-            textBox1.Enter += textBox1_Enter;
-            textBox1.KeyDown += textBox1_KeyDown;
+            StringInputTextBox.ForeColor = Color.Gray;
+            StringInputTextBox.Location = new Point(12, 12);
+            StringInputTextBox.Multiline = true;
+            StringInputTextBox.Name = "textBox1";
+            StringInputTextBox.ScrollBars = ScrollBars.Vertical;
+            StringInputTextBox.Size = new Size(367, 122);
+            StringInputTextBox.TabIndex = 1;
+            StringInputTextBox.Text = "Введите строку";
+            StringInputTextBox.Enter += StringInputTextBox_Enter;
+            StringInputTextBox.KeyDown += StringInputTextBox_KeyDown;
             // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(473, 145);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(StringInputTextBox);
+            Controls.Add(ConfirmationButton);
             Name = "Form3";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Задача 2. Текст.";
@@ -71,7 +71,7 @@
 
         #endregion
 
-        private Button button1;
-        private TextBox textBox1;
+        private Button ConfirmationButton;
+        private TextBox StringInputTextBox;
     }
 }

@@ -28,49 +28,49 @@
     /// </summary>
     private void InitializeComponent()
     {
-      button2 = new Button();
-      label1 = new Label();
-      textBox1 = new TextBox();
-      button1 = new Button();
+      ConfirmationButton = new Button();
+      LengthEnterLabel = new Label();
+      LengthEnterTextBox = new TextBox();
+      LengthEnterButton = new Button();
       SuspendLayout();
       // 
-      // button2
+      // ConfirmationButton
       // 
-      button2.Location = new Point(12, 12);
-      button2.Name = "button2";
-      button2.Size = new Size(93, 23);
-      button2.TabIndex = 7;
-      button2.Text = "Утвердить";
-      button2.UseVisualStyleBackColor = true;
-      button2.Visible = false;
-      button2.Click += button2_Click;
+      ConfirmationButton.Location = new Point(12, 12);
+      ConfirmationButton.Name = "ConfirmationButton";
+      ConfirmationButton.Size = new Size(93, 23);
+      ConfirmationButton.TabIndex = 7;
+      ConfirmationButton.Text = "Утвердить";
+      ConfirmationButton.UseVisualStyleBackColor = true;
+      ConfirmationButton.Visible = false;
+      ConfirmationButton.Click += ConfirmationButton_Click;
       // 
-      // label1
+      // LengthEnterLabel
       // 
-      label1.AutoSize = true;
-      label1.Location = new Point(39, 20);
-      label1.Name = "label1";
-      label1.Size = new Size(135, 15);
-      label1.TabIndex = 6;
-      label1.Text = "Введите длину массива";
+      LengthEnterLabel.AutoSize = true;
+      LengthEnterLabel.Location = new Point(39, 20);
+      LengthEnterLabel.Name = "LengthEnterLabel";
+      LengthEnterLabel.Size = new Size(135, 15);
+      LengthEnterLabel.TabIndex = 6;
+      LengthEnterLabel.Text = "Введите длину массива";
       // 
-      // textBox1
+      // LengthEnterTextBox
       // 
-      textBox1.Location = new Point(12, 47);
-      textBox1.Name = "textBox1";
-      textBox1.Size = new Size(204, 23);
-      textBox1.TabIndex = 5;
-      textBox1.KeyDown += textBox1_KeyDown;
+      LengthEnterTextBox.Location = new Point(12, 47);
+      LengthEnterTextBox.Name = "LengthEnterTextBox";
+      LengthEnterTextBox.Size = new Size(204, 23);
+      LengthEnterTextBox.TabIndex = 5;
+      LengthEnterTextBox.KeyDown += LengthEnterTextBox_KeyDown;
       // 
-      // button1
+      // LengthEnterButton
       // 
-      button1.Location = new Point(222, 47);
-      button1.Name = "button1";
-      button1.Size = new Size(75, 23);
-      button1.TabIndex = 4;
-      button1.Text = "Ввод";
-      button1.UseVisualStyleBackColor = true;
-      button1.Click += button1_Click;
+      LengthEnterButton.Location = new Point(222, 47);
+      LengthEnterButton.Name = "LengthEnterButton";
+      LengthEnterButton.Size = new Size(75, 23);
+      LengthEnterButton.TabIndex = 4;
+      LengthEnterButton.Text = "Ввод";
+      LengthEnterButton.UseVisualStyleBackColor = true;
+      LengthEnterButton.Click += LengthEnterButton_Click;
       // 
       // OneDimArrayForm
       // 
@@ -79,23 +79,24 @@
       AutoScroll = true;
       AutoSize = true;
       ClientSize = new Size(305, 101);
-      Controls.Add(button2);
-      Controls.Add(label1);
-      Controls.Add(textBox1);
-      Controls.Add(button1);
+      Controls.Add(ConfirmationButton);
+      Controls.Add(LengthEnterLabel);
+      Controls.Add(LengthEnterTextBox);
+      Controls.Add(LengthEnterButton);
       MaximumSize = new Size(600, 150);
       Name = "OneDimArrayForm";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Работа с массивом";
+      FormClosing += OneDimArrayForm_FormClosing;
       ResumeLayout(false);
       PerformLayout();
     }
 
     #endregion
 
-    private Button button2;
-    private Label label1;
-    private TextBox textBox1;
-    private Button button1;
+    private Button ConfirmationButton;
+    private Label LengthEnterLabel;
+    private TextBox LengthEnterTextBox;
+    private Button LengthEnterButton;
   }
 }

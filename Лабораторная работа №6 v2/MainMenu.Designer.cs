@@ -41,6 +41,7 @@
       ReverseStringButton = new Button();
       GuideButton = new Button();
       button1 = new Button();
+      RandomStringButton = new Button();
       SuspendLayout();
       // 
       // OneDimCreateButton
@@ -171,11 +172,22 @@
       button1.UseVisualStyleBackColor = true;
       button1.Click += button1_Click;
       // 
-      // Form1
+      // RandomStringButton
+      // 
+      RandomStringButton.Location = new Point(689, 151);
+      RandomStringButton.Name = "RandomStringButton";
+      RandomStringButton.Size = new Size(99, 23);
+      RandomStringButton.TabIndex = 13;
+      RandomStringButton.Text = "Случайно";
+      RandomStringButton.UseVisualStyleBackColor = true;
+      RandomStringButton.Click += RandomStringButton_Click;
+      // 
+      // MainMenu
       // 
       AutoScaleDimensions = new SizeF(7F, 15F);
       AutoScaleMode = AutoScaleMode.Font;
       ClientSize = new Size(800, 237);
+      Controls.Add(RandomStringButton);
       Controls.Add(button1);
       Controls.Add(GuideButton);
       Controls.Add(ReverseStringButton);
@@ -189,7 +201,7 @@
       Controls.Add(OneDimEditButton);
       Controls.Add(MainWindow);
       Controls.Add(OneDimCreateButton);
-      Name = "Form1";
+      Name = "MainMenu";
       StartPosition = FormStartPosition.CenterScreen;
       Text = "Лабораторная работа №6.";
       ResumeLayout(false);
@@ -211,5 +223,6 @@
     private Button ReverseStringButton;
     private Button GuideButton;
     private Button button1;
+    private Button RandomStringButton;
   }
 }
