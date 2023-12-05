@@ -9,7 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Лабораторная_работа__5
 {
-  public struct BusinessLogic
+  public static class BusinessLogic
   {
     public static string task2String = string.Empty;
     public const string alphabetLowerCase =  "абвгдеёжзийклмнопрстуфхцчшщъыьэюя", alphabetUpperCase = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
@@ -264,7 +264,7 @@ namespace Лабораторная_работа__5
           switch (task2String[task2String.Length - 1])
           {
             case ' ':
-              task2String = task2String.Trim(' '); //потестить
+              task2String = task2String.Trim(' ');
               return Task2StringCorrect;
             case '.':
               return true;
