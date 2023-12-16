@@ -34,7 +34,7 @@ namespace Лабораторная_работа__6_v2
 
     public void Printer()
     {
-      OneDimTemp.PrintBoxes();
+      PrintBoxes(OneDimTemp.array);
       foreach (var s in textBoxes)
         Controls.Add(s);
       foreach (var s in labels)
@@ -74,7 +74,7 @@ namespace Лабораторная_работа__6_v2
     {
       if (OneDimBoxesCheck)
       {
-        OneDimTemp.BoxesToArray();
+        BoxesToArray(OneDimTemp.array);
         OneDimMain.array = Copy(OneDimTemp.array);
         this.Close();
       }
@@ -83,7 +83,7 @@ namespace Лабораторная_работа__6_v2
         DialogResult dialogResult = MessageBox.Show("Вы хотите записать введённые параметры в элементы массива? Значения не типа integer будут записаны как нули.", "Предупреждение", MessageBoxButtons.YesNo);
         if (dialogResult == DialogResult.Yes)
         {
-          OneDimTemp.BoxesToArray();
+          BoxesToArray(OneDimTemp.array);
           OneDimMain.array = Copy(OneDimTemp.array);
           this.Close();
         }

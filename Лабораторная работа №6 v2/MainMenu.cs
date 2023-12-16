@@ -71,9 +71,9 @@ namespace Лабораторная_работа__6_v2
 
     private void ReverseStringButton_Click(object sender, EventArgs e)
     {
-      if (Task2StringCorrect)
+      if (IsTask2StringCorrect)
       {
-        task2String = Reverse_String();
+        task2String = Task2();
         MainWindow.Text = "Введённая строка:" + Environment.NewLine + task2String;
       }
       else

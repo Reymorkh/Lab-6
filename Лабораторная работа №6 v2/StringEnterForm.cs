@@ -16,11 +16,17 @@ namespace Лабораторная_работа__6_v2
     public StringEnterForm()
     {
       InitializeComponent();
+      if (task2String != string.Empty)
+      {
+        StringInputTextBox.ForeColor = Color.Black;
+      StringInputTextBox.Text = task2String;      
+      }
     }
 
     private void StringInputTextBox_Enter(object sender, EventArgs e)
     {
-      StringInputTextBox.Text = string.Empty;
+      if (StringInputTextBox.Text == "Введите строку")
+        StringInputTextBox.Text = string.Empty;
       StringInputTextBox.ForeColor = Color.Black;
     }
 
@@ -36,7 +42,7 @@ namespace Лабораторная_работа__6_v2
     private void ConfirmationButton_Click(object sender, EventArgs e)
     {
       task2String = StringInputTextBox.Text;
-      if (Task2StringCorrect)
+      if (IsTask2StringCorrect)
       {
         this.Dispose();
         this.Close();

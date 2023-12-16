@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +18,7 @@ namespace Лабораторная_работа__5
     public const string alphabetLowerCase =  "абвгдеёжзийклмнопрстуфхцчшщъыьэюя", alphabetUpperCase = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
     public static OneDim OneDimMain = new OneDim(0), OneDimTemp = new OneDim(0);
     public static Random random = new Random();
+    public static List<int> emptyLinesNumbers = new List<int>();
 
     #region random fill
     public static void RandomFill_OneDim()
@@ -51,6 +55,38 @@ namespace Лабораторная_работа__5
     }
     #endregion
 
+    #region One-Dimensional Array Management
+    public static void PrintBoxes(int[] array)
+    {
+      AddLabel(-0.5, 0, 0 + 1);
+      for (int i = 0; i < array.Length; i++)
+      {
+        AddBox(i, 0);
+        AddLabel(i, -0.8, i + 1);
+      }
+      NumbersToBoxes(array);
+    }
+
+    public static void NumbersToBoxes(int[] array)
+    {
+      ;
+      for (int i = 0; i < textBoxes.Count && i < array.Length; i++)
+      {
+        if (array[i] != 0)
+          textBoxes[i].Text = Convert.ToString(array[i]);
+      }
+    }
+
+    public static void BoxesToArray(int[] array)
+    {
+      for (int i = 0; i < array.Length; i++)
+      {
+        if (textBoxes[i] != null && int.TryParse(textBoxes[i].Text, out int temp))
+          array[i] = Convert.ToInt32(textBoxes[i].Text);
+      }
+    }
+    #endregion
+
     #region Major Tasks
     public static void Task1()
     {
@@ -79,26 +115,77 @@ namespace Лабораторная_работа__5
       return -1;
     }
 
-    public static string Reverse_String()
+    public static bool FindEmptyLines(string[] array)
     {
-      string[] sentences = task2String.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);//делёжка ввода на предложения
-      for (int i = 0; i < sentences.Length; i += + 2)
+      for (int i = 0; i < array.Length; i++)
       {
-        string[] withCommas = sentences[i].Split(' ', StringSplitOptions.RemoveEmptyEntries), words = sentences[i].Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-        Array.Reverse(words);
-        Array.Reverse(withCommas);
-        words[words.Length - 1] = CharUpperToLower(StringToChar(words[words.Length - 1]));
-        words[0] = CharLowerToUpper(StringToChar(words[0]));
-        sentences[i] = string.Empty;
-        sentences[i] += " " + words[0];
-        for (int j = 1; j < words.Length; j++)
+        int counter = 0;
+        for (int j = 0; j < array[i].Length && char.IsWhiteSpace(array[i][j]); j++)
+          counter++;
+        if (counter == array[i].Length)
+          emptyLinesNumbers.Add(i);
+      }
+      if (emptyLinesNumbers.Count != 0)
+        return true;
+      else
+        return false;
+    }
+
+    public static string[] DeleteEmptyLines(string[] array)
+    {
+      string[] newArray = new string[array.Length - emptyLinesNumbers.Count];
+      for (int i = 0, j = 0; i < array.Length; i++, j++)
+      {
+        while (emptyLinesNumbers.Contains(i))
         {
-          if (Char.IsPunctuation(withCommas[j][withCommas[j].Length - 1]) && words[j].Length > 1)
-            sentences[i] += withCommas[j][withCommas[j].Length - 1] + " " + words[j];
-          else
-            sentences[i] += " " + words[j];
+          emptyLinesNumbers.Remove(i);
+          i++;
+        }
+        newArray[j] = array[i];
+      }
+      emptyLinesNumbers.Clear();
+      return newArray;
+    }
+    
+    public static string RemovePunctuation (string word, ref int reverseCounter)
+    {
+      while (reverseCounter > -1 && Char.IsPunctuation(word[reverseCounter])) //индекс первого знака препинания в слове
+        reverseCounter--;
+      string punctuation = string.Empty;
+      for (int j = reverseCounter + 1; j < word.Length; j++) //занесение всех знаков препинания из слова в базу индексов знаков препинания
+        punctuation += word[j];
+      return punctuation;
+    }
+
+    public static string ReverseSentence(string sentence)
+    {
+      string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries), punctuationArray = new string[words.Length];
+      words[0] = CharUpperToLower(StringToChar(words[0]));
+      words[words.Length - 1] = CharLowerToUpper(StringToChar(words[words.Length - 1])); // последнее слово на первое место с повышением регистра первой буквы
+      for (int i = 0; i > words.Length; i++)
+      {
+        if (Char.IsPunctuation(words[i][words[i].Length - 1])) 
+        {
+          int reverseCounter = words[i].Length - 1;
+          punctuationArray[i] = RemovePunctuation(words[i], ref reverseCounter);
+          char[] tempWord = StringToChar(words[i]);
+          Array.Resize(ref tempWord, reverseCounter + 1);
+          words[i] = new string (tempWord); //замена слова на слово без знаков препинания
         }
       }
+      string newSentence = string.Empty;
+      for (int i = words.Length - 1, j = 0; i > -1; i--, j++)
+        newSentence += ' ' + words[i] + punctuationArray[j];
+      return newSentence;
+    }
+
+    public static string Task2()
+    {
+      string[] sentences = task2String.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);//делёжка ввода на предложения
+      if (FindEmptyLines(sentences))
+        sentences = DeleteEmptyLines(sentences);
+      for (int i = 0; i < sentences.Length; i += 2)
+        sentences[i] = ReverseSentence(sentences[i]);
       string temp = string.Empty;
       int sentenceCounter = 0;
       for (int i = 0; i < task2String.Length; i++)
@@ -256,7 +343,7 @@ namespace Лабораторная_работа__5
     }
     #endregion
 
-    public static bool Task2StringCorrect
+    public static bool IsTask2StringCorrect
     {
       get
       {
@@ -265,7 +352,7 @@ namespace Лабораторная_работа__5
           {
             case ' ':
               task2String = task2String.Trim(' ');
-              return Task2StringCorrect;
+              return IsTask2StringCorrect;
             case '.':
               return true;
             case '!':

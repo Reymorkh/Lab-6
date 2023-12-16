@@ -6,7 +6,7 @@ using static System.Windows.Forms.DataFormats;
 
 namespace MyLibStructWF
 {
-  public struct ArrayTypes
+  public static class ArrayTypes
   {
     const double fromTop = 30, fromLeft = 60;
     static Size size = new Size(40, 20);
@@ -53,39 +53,6 @@ namespace MyLibStructWF
         line = line.Trim();
         return line;
       } //Функция для верхней функции
-
-      public void PrintBoxes()
-      {
-        AddLabel(-0.5, 0, 0 + 1);
-        for (int i = 0; i < array.Length; i++)
-        {
-          AddBox(i, 0);
-          AddLabel(i, -0.8, i + 1);
-        }
-        NumbersToBoxes();
-      }
-
-      public void NumbersToBoxes()
-      {
-        int boxIndex = 0;
-        for (int i = 0; i < textBoxes.Count && i < array.Length; i++)
-        {
-          if (array[i] != 0)
-            textBoxes[boxIndex].Text = Convert.ToString(array[i]);
-          boxIndex++;
-
-        }
-      }
-
-      public void BoxesToArray()
-      {
-        int temp;
-        for (int i = 0; i < array.Length; i++)
-        {
-          if (textBoxes[i] != null && int.TryParse(textBoxes[i].Text, out temp))
-            array[i] = Convert.ToInt32(textBoxes[i].Text);
-        }
-      }
       #endregion
 
       public int Length
