@@ -118,7 +118,7 @@ namespace Лабораторная_работа__5
     public static bool IsLineEmpty(string line)
     {
       int wsCounter = 0;
-      for (int i = 0; i < line.Length && Char.IsWhiteSpace(line[i]); i++)
+      for (int i = 0; i < line.Length; i++)
       {
         if (Char.IsWhiteSpace(line[i]))
           wsCounter++;
@@ -142,23 +142,27 @@ namespace Лабораторная_работа__5
     public static string ReverseSentence(string sentence)
     {
       string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries), punctuationArray = new string[words.Length];
-      words[0] = CharUpperToLower(StringToChar(words[0]));
-      words[words.Length - 1] = CharLowerToUpper(StringToChar(words[words.Length - 1])); // последнее слово на первое место с повышением регистра первой буквы
-      for (int i = 0; i > words.Length; i++)
+      if (words.Length != 0)
       {
-        if (Char.IsPunctuation(words[i][words[i].Length - 1])) 
+        words[0] = CharUpperToLower(StringToChar(words[0]));
+        words[words.Length - 1] = CharLowerToUpper(StringToChar(words[words.Length - 1])); // последнее слово на первое место с повышением регистра первой буквы
+        for (int i = 0; i > words.Length; i++)
         {
-          int reverseCounter = words[i].Length - 1;
-          punctuationArray[i] = RemovePunctuation(words[i], ref reverseCounter);
-          char[] tempWord = StringToChar(words[i]);
-          Array.Resize(ref tempWord, reverseCounter + 1);
-          words[i] = new string (tempWord); //замена слова на слово без знаков препинания
+          if (Char.IsPunctuation(words[i][words[i].Length - 1]))
+          {
+            int reverseCounter = words[i].Length - 1;
+            punctuationArray[i] = RemovePunctuation(words[i], ref reverseCounter);
+            char[] tempWord = StringToChar(words[i]);
+            Array.Resize(ref tempWord, reverseCounter + 1);
+            words[i] = new string(tempWord); //замена слова на слово без знаков препинания
+          }
         }
+        string newSentence = string.Empty;
+        for (int i = words.Length - 1, j = 0; i > -1; i--, j++)
+          newSentence += ' ' + words[i] + punctuationArray[j];
+        return newSentence;
       }
-      string newSentence = string.Empty;
-      for (int i = words.Length - 1, j = 0; i > -1; i--, j++)
-        newSentence += ' ' + words[i] + punctuationArray[j];
-      return newSentence;
+      return sentence;
     }
 
     public static string GetEndOfSentences
@@ -171,17 +175,17 @@ namespace Лабораторная_работа__5
           switch (task2String[i])
           {
             case '.':
-              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+              if (!IsLineEmpty(task2String[j..i]))
                 endOfSentChars += '.';
               j = i + 1;
               break;
             case '!':
-              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+              if (!IsLineEmpty(task2String[j..i]))
                 endOfSentChars += '!';
               j = i + 1;
               break;
             case '?':
-              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+              if (!IsLineEmpty(task2String[j..i]))
                 endOfSentChars += '?';
               j = i + 1;
               break;
@@ -191,10 +195,24 @@ namespace Лабораторная_работа__5
       }
     }
 
+    public static string[] RemoveEmptyEntries(string[] sentences)
+    {
+      string[] newSentences = new string[sentences.Length];
+      int i, j;
+      for (i = 0, j = 0; i < sentences.Length; j++, i++)
+      {
+        while (i < sentences.Length - 1 && IsLineEmpty(sentences[i]))
+          i++;
+        newSentences[j] = sentences[i];
+      }
+      Array.Resize(ref newSentences, j + 1);
+      return newSentences;
+    }
+
     public static string Task2()
     {
       string endOfSentChars = GetEndOfSentences;
-      string[] sentences = task2String.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+      string[] sentences = RemoveEmptyEntries(task2String.Split(new char[] { '.', '!', '?' }));
       
 
       for (int i = 0; i < sentences.Length; i += 2)
@@ -202,6 +220,8 @@ namespace Лабораторная_работа__5
       string temp = string.Empty;
       for (int i = 0; i < endOfSentChars.Length; i++)
       {
+        //while (IsLineEmpty(sentences[i]))
+        //  i++;
         switch (endOfSentChars[i])
         {
           case '.':
@@ -209,11 +229,9 @@ namespace Лабораторная_работа__5
             break;
           case '!':
             temp += sentences[i] + '!';
-            i++;
             break;
           case '?':
             temp += sentences[i] + '?';
-            i++;
             break;
         }
       }
