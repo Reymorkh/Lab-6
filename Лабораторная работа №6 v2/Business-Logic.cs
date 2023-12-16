@@ -115,38 +115,20 @@ namespace Лабораторная_работа__5
       return -1;
     }
 
-    public static bool FindEmptyLines(string[] array)
+    public static bool IsLineEmpty(string line)
     {
-      for (int i = 0; i < array.Length; i++)
+      int wsCounter = 0;
+      for (int i = 0; i < line.Length && Char.IsWhiteSpace(line[i]); i++)
       {
-        int counter = 0;
-        for (int j = 0; j < array[i].Length && char.IsWhiteSpace(array[i][j]); j++)
-          counter++;
-        if (counter == array[i].Length)
-          emptyLinesNumbers.Add(i);
+        if (Char.IsWhiteSpace(line[i]))
+          wsCounter++;
       }
-      if (emptyLinesNumbers.Count != 0)
+      if (wsCounter==line.Length)
         return true;
       else
         return false;
     }
 
-    public static string[] DeleteEmptyLines(string[] array)
-    {
-      string[] newArray = new string[array.Length - emptyLinesNumbers.Count];
-      for (int i = 0, j = 0; i < array.Length; i++, j++)
-      {
-        while (emptyLinesNumbers.Contains(i))
-        {
-          emptyLinesNumbers.Remove(i);
-          i++;
-        }
-        newArray[j] = array[i];
-      }
-      emptyLinesNumbers.Clear();
-      return newArray;
-    }
-    
     public static string RemovePunctuation (string word, ref int reverseCounter)
     {
       while (reverseCounter > -1 && Char.IsPunctuation(word[reverseCounter])) //индекс первого знака препинания в слове
@@ -179,30 +161,59 @@ namespace Лабораторная_работа__5
       return newSentence;
     }
 
+    public static string GetEndOfSentences
+    {
+      get
+      {
+        string endOfSentChars = string.Empty;
+        for (int i = 0, j = 0; i < task2String.Length; i++)
+        {
+          switch (task2String[i])
+          {
+            case '.':
+              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+                endOfSentChars += '.';
+              j = i + 1;
+              break;
+            case '!':
+              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+                endOfSentChars += '!';
+              j = i + 1;
+              break;
+            case '?':
+              if (!IsLineEmpty(task2String.Substring(j, i - j)))
+                endOfSentChars += '?';
+              j = i + 1;
+              break;
+          }
+        }
+        return endOfSentChars;
+      }
+    }
+
     public static string Task2()
     {
-      string[] sentences = task2String.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);//делёжка ввода на предложения
-      if (FindEmptyLines(sentences))
-        sentences = DeleteEmptyLines(sentences);
+      string endOfSentChars = GetEndOfSentences;
+      string[] sentences = task2String.Split(new char[] { '.', '!', '?' }, StringSplitOptions.RemoveEmptyEntries);
+      
+
       for (int i = 0; i < sentences.Length; i += 2)
         sentences[i] = ReverseSentence(sentences[i]);
       string temp = string.Empty;
-      int sentenceCounter = 0;
-      for (int i = 0; i < task2String.Length; i++)
+      for (int i = 0; i < endOfSentChars.Length; i++)
       {
-        switch (task2String[i])
+        switch (endOfSentChars[i])
         {
           case '.':
-            temp += sentences[sentenceCounter] + '.';
-            sentenceCounter++;
+            temp += sentences[i] + '.';
             break;
           case '!':
-            temp += sentences[sentenceCounter] + '!';
-            sentenceCounter++;
+            temp += sentences[i] + '!';
+            i++;
             break;
           case '?':
-            temp += sentences[sentenceCounter] + '?';
-            sentenceCounter++;
+            temp += sentences[i] + '?';
+            i++;
             break;
         }
       }
