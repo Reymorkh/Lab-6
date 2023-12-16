@@ -141,12 +141,13 @@ namespace Лабораторная_работа__5
 
     public static string ReverseSentence(string sentence)
     {
-      string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries), punctuationArray = new string[words.Length];
-      if (words.Length != 0)
+      if (sentence != null && sentence != "")
       {
+      string[] words = sentence.Split(' ', StringSplitOptions.RemoveEmptyEntries), punctuationArray = new string[words.Length];
+      
         words[0] = CharUpperToLower(StringToChar(words[0]));
         words[words.Length - 1] = CharLowerToUpper(StringToChar(words[words.Length - 1])); // последнее слово на первое место с повышением регистра первой буквы
-        for (int i = 0; i > words.Length; i++)
+        for (int i = 0; i < words.Length; i++)
         {
           if (Char.IsPunctuation(words[i][words[i].Length - 1]))
           {
@@ -220,8 +221,6 @@ namespace Лабораторная_работа__5
       string temp = string.Empty;
       for (int i = 0; i < endOfSentChars.Length; i++)
       {
-        //while (IsLineEmpty(sentences[i]))
-        //  i++;
         switch (endOfSentChars[i])
         {
           case '.':
